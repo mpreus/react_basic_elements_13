@@ -3,7 +3,7 @@ body {
 }
 
 #root {
-	background: #fff;
+	background-color: #fff;
 	border: 1px solid #333;
 	box-shadow: 3px 3px 3px #999;
 	margin: 20px auto;
@@ -30,6 +30,23 @@ td {
 
 tfoot tr {
 	font-weight: bold;
+}
+
+img {
+	margin-left: 30px;
+	width: 80px;
+}
+
+span {
+	font-family: monospace;
+	font-size: 12px;
+	margin: 0 auto;
+	text-transform: uppercase;
+}
+
+.established {
+	display: flex;
+	justify-content: space-between;
 }
 
 

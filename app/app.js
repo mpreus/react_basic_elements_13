@@ -40,6 +40,7 @@ const Items = [
 const Header = () => {
 	return (
 		<div>
+			<span>twój spożywczak - niezawodny od 10 lat - niezawodnie</span>
 			<h1>Twój rachunek</h1>
 			<p>Podsumowanie Twoich zakupów</p>
 		</div>
@@ -51,6 +52,15 @@ const Footer = () => {
 		<div>
 			<p>Dziękujemy za twoją wizytę!</p>
 			<p>Niecierpliwie czekamy na następną!</p>
+			<div className="established">
+				<div>
+					<span>rok założenia 2010</span><br/>
+					<span>REGON 938362412</span><br/>
+					<span>kasa 049483765242</span><br/>
+					<span>czas: 71220191849</span>
+				</div>
+				<img src="../img/shop-logo.png"/>
+			</div>
 		</div>
 	)
 }
