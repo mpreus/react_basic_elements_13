@@ -37,7 +37,25 @@ const Items = [
   }
 ];
 
-/* Kolejne komponenty:
+const Header = () => {
+	return (
+		<div>
+			<h1>Twój rachunek</h1>
+			<p>Podsumowanie Twoich zakupów</p>
+		</div>
+	)
+}
+
+const Footer = () => {
+	return (
+		<div>
+			<p>Dziękujemy za twoją wizytę!</p>
+			<p>Niecierpliwie czekamy na następną!</p>
+		</div>
+	)
+}
+
+/* Kolejne komponenty tabeli:
 Header - Items i Item - Footer 
 'Receipt' na końcu, po nim już tylko komponent 'App' */
 class ReceiptHeader extends React.Component {
@@ -45,7 +63,7 @@ class ReceiptHeader extends React.Component {
 		return ( // wewnątrz wiersza tabeli dla każdego elementu nagłówka utwórz element 'head' tabeli 
 			<thead>
 				<tr>
-					{this.props.headers.map(s => <th key={headersElement}>{headersElement}</th>) }
+					{this.props.headers.map(headersElement => <th key={headersElement}>{headersElement}</th>) }
 				</tr>
 			</thead>
 		); // nazwy 'headers' przekazujemy w headers = {[...]}) w komponencie 'Receipt'
@@ -56,9 +74,7 @@ class ReceiptItems extends React.Component {
 	render() {			// tworzy wiele wierszy - każdemy przedmiotowi tworzy komponent z nazwą przedmiotu (+ key)
 		return (
 			<tbody> 
-				{this.props.items.map(item => (
-					<ReceiptItem key={item.code} item={item}/> ) 
-				)}
+				{this.props.items.map(item => <ReceiptItem key={item.code} item={item}/>) }
 			</tbody>
 		);
 	}
@@ -66,13 +82,13 @@ class ReceiptItems extends React.Component {
 
 class ReceiptItem extends React.Component {
 	render() {			// tworzy pojedyńczy wiersz, korzystając z danych poszczególnego 'item'
-		// const {item} = this.props;
+		// const {item} = this.props; wyeliminowałoby konieczność wpisywania 'this.props' w liniach tworzących 'td'
 		return ( 
 			<tr>
 				<td>{this.props.item.name}</td>
-				<td>{this.props.item.single_price}</td>
-				<td>{this.props.item.qty}</td>
-				<td>{this.props.item.single_price * this.props.item.qty}</td>
+				<td className="shopData">{this.props.item.single_price}</td>
+				<td className="shopData">{this.props.item.qty}</td>
+				<td className="shopData">{this.props.item.single_price * this.props.item.qty}</td>
 			</tr>
 		);
 	}
@@ -85,9 +101,9 @@ class ReceiptFooter extends React.Component {
 			<tfoot>
 				<tr>
 					<td>RAZEM</td>
-					<td>-</td>
-					<td>-</td>
-					<td>{this.props.items.reduce( (a, c) => (c.single_price * c.qty) + a, 0 ).toFixed(2) }</td>
+					<td className="shopData">-</td>
+					<td className="shopData">-</td>
+					<td className="shopData">{this.props.items.reduce( (a, c) => (c.single_price * c.qty) + a, 0 ).toFixed(2) }</td>
 				</tr>
 			</tfoot>
 		); 					// 'toFixed([liczba] ogranicza liczbę znaków po przecinku)'
@@ -98,11 +114,15 @@ class ReceiptFooter extends React.Component {
 class Receipt extends React.Component {
 	render() {
 		return (
-			<table>
-				<ReceiptHeader headers={this.props.headers} />
-				<ReceiptItems items={this.props.items} />
-				<ReceiptFooter items={this.props.items} />
-			</table>
+			<React.Fragment>
+				<Header />
+					<table>
+						<ReceiptHeader headers={this.props.headers} />
+						<ReceiptItems items={this.props.items} />
+						<ReceiptFooter items={this.props.items} />
+					</table>
+				<Footer />
+			</React.Fragment>
 		);
 	}
 }
